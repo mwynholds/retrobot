@@ -3,9 +3,7 @@ package retroboy.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Data;
-
-@Data
+@lombok.Data
 public class Card {
   private String body;
   private User creator;

@@ -1,8 +1,6 @@
 package retroboy.model;
 
-import lombok.Data;
-
-@Data
+@lombok.Data
 public class User {
   private String email;
 }
