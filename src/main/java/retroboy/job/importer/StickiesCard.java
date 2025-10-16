@@ -7,11 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @lombok.Data
 @lombok.NoArgsConstructor
+@lombok.AllArgsConstructor
 @Document(collection = "cards")
-public class StickiesCard {
+public class StickiesCard implements StickiesIdentifiable {
   @Id
   private String id;
-  private String body;
+  private String text;
   private String creator;
   private Set<String> authors;
 }

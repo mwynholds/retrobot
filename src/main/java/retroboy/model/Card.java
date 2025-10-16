@@ -1,11 +1,15 @@
 package retroboy.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 @lombok.Data
+@lombok.NoArgsConstructor
+@lombok.AllArgsConstructor
+@Table(name = "cards")
 public class Card {
+  @Id
+  private String id;
   private String body;
-  private User creator;
-  private Set<User> authors = new HashSet<User>();
+  private String creatorId;
 }

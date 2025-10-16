@@ -20,8 +20,6 @@ public class CardController {
 
         Card card1 = new Card();
         card1.setBody("I like that we show up on time");
-        card1.setCreator(user1);
-        card1.getAuthors().add(user1);
 
         return List.of(card1);
     }

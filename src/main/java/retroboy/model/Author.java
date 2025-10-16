@@ -6,10 +6,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @lombok.Data
 @lombok.NoArgsConstructor
 @lombok.AllArgsConstructor
-@Table(name = "users")
-public class User {
+@Table(name = "authors")
+public class Author {
   @Id
-  private String id;
-  private String email;
-  private String source;
+  private int id;
+  private String userId;
+  private String cardId;
 }
