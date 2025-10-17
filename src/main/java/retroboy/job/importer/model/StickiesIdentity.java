@@ -1,4 +1,4 @@
-package retroboy.job.importer;
+package retroboy.job.importer.model;
 
 import java.util.Date;
 
@@ -8,8 +8,7 @@ import org.springframework.data.annotation.Id;
 @lombok.NoArgsConstructor
 @lombok.AllArgsConstructor
 public class StickiesIdentity {
-  @Id
-  private String id;
+  @Id private String id;
   private String email;
   private String source;
   private Date updated;

@@ -8,8 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @lombok.AllArgsConstructor
 @Table(name = "cards")
 public class Card {
-  @Id
-  private String id;
+  @Id private String id;
   private String body;
   private String creatorId;
 }

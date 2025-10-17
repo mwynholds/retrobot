@@ -1,4 +1,4 @@
-package retroboy.job.importer;
+package retroboy.job.importer.model;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,8 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @lombok.AllArgsConstructor
 @Document(collection = "users")
 public class StickiesUser implements StickiesIdentifiable {
-  @Id
-  private String id;
+  @Id private String id;
   private Set<StickiesIdentity> identities;
   private String activeIdentity;
 

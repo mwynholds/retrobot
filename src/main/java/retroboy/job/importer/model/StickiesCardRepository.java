@@ -1,4 +1,4 @@
-package retroboy.job.importer;
+package retroboy.job.importer.model;
 
 import java.util.stream.Stream;
 

@@ -8,8 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @lombok.AllArgsConstructor
 @Table(name = "authors")
 public class Author {
-  @Id
-  private int id;
+  @Id private int id;
   private String userId;
   private String cardId;
 }
