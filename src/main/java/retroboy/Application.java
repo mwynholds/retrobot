@@ -11,8 +11,7 @@ import retroboy.job.importer.ImporterJob;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-  @Autowired
-  private ImporterJob importerJob;
+  @Autowired private ImporterJob importerJob;
 
   public static void main(String[] args) {
     if (args.length == 0)
@@ -25,8 +24,7 @@ public class Application implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    if (args.length == 0)
-      return;
+    if (args.length == 0) return;
 
     String job = args[0].toLowerCase();
     if (job.equals("import")) {

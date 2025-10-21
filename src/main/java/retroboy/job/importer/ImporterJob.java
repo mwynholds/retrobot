@@ -97,8 +97,7 @@ public class ImporterJob {
 
     users = susers.stream().map(suser -> {
       StickiesIdentity sident = suser.extractActiveIdentity();
-      if (sident == null)
-        return null;
+      if (sident == null) return null;
 
       return new User(suser.id(), sident.email(), sident.source());
     }).filter(Objects::nonNull).toList();
@@ -119,16 +118,13 @@ public class ImporterJob {
     authors = new ArrayList<>(scards.size());
 
     scards.forEach(scard -> {
-      if (scard.creator() == null)
-        return;
-      if (!suserIds.contains(scard.creator()))
-        return;
+      if (scard.creator() == null) return;
+      if (!suserIds.contains(scard.creator())) return;
 
       cards.add(new Card(scard.id(), scard.text(), scard.creator()));
 
       scard.authors().forEach(authorId -> {
-        if (!suserIds.contains(authorId))
-          return;
+        if (!suserIds.contains(authorId)) return;
 
         authors.add(new Author(null, authorId, scard.id()));
       });
