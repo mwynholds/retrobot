@@ -96,15 +96,11 @@ public class ImporterJob {
     List<User> users;
 
     users = susers.stream().map(suser -> {
-      StickiesIdentity sident = suser.activeIdentity();
+      StickiesIdentity sident = suser.extractActiveIdentity();
       if (sident == null)
         return null;
 
-      User user = new User();
-      user.setId(suser.getId());
-      user.setEmail(sident.getEmail());
-      user.setSource(sident.getSource());
-      return user;
+      return new User(suser.id(), sident.email(), sident.source());
     }).filter(Objects::nonNull).toList();
 
     try {
@@ -123,25 +119,18 @@ public class ImporterJob {
     authors = new ArrayList<>(scards.size());
 
     scards.forEach(scard -> {
-      if (scard.getCreator() == null)
+      if (scard.creator() == null)
         return;
-      if (!suserIds.contains(scard.getCreator()))
+      if (!suserIds.contains(scard.creator()))
         return;
 
-      Card card = new Card();
-      card.setId(scard.getId());
-      card.setBody(scard.getText());
-      card.setCreatorId(scard.getCreator());
-      cards.add(card);
+      cards.add(new Card(scard.id(), scard.text(), scard.creator()));
 
-      scard.getAuthors().forEach(authorId -> {
+      scard.authors().forEach(authorId -> {
         if (!suserIds.contains(authorId))
           return;
 
-        Author author = new Author();
-        author.setCardId(scard.getId());
-        author.setUserId(authorId);
-        authors.add(author);
+        authors.add(new Author(null, authorId, scard.id()));
       });
     });
 

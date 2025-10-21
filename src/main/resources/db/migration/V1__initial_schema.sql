@@ -9,6 +9,7 @@ create table users (
 create table cards (
   id varchar(24) primary key not null,
   body text,
+  body_tsv tsvector generated always as (to_tsvector('english', body)) stored,
   creator_id varchar(24) not null references users(id),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

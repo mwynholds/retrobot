@@ -6,9 +6,9 @@ public class UserMapping extends AbstractMapping<User> {
   public UserMapping() {
     super("public", "users");
 
-    mapText("id", User::getId);
-    mapText("email", User::getEmail);
-    mapText("source", User::getSource);
+    mapText("id", User::id);
+    mapText("email", User::email);
+    mapText("source", User::source);
   }
 
 }

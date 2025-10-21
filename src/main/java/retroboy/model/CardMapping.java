@@ -6,8 +6,8 @@ public class CardMapping extends AbstractMapping<Card> {
   public CardMapping() {
     super("public", "cards");
 
-    mapText("id", Card::getId);
-    mapText("body", Card::getBody);
-    mapText("creator_id", Card::getCreatorId);
+    mapText("id", Card::id);
+    mapText("body", Card::body);
+    mapText("creator_id", Card::creatorId);
   }
 }
