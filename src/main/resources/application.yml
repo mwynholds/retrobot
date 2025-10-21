@@ -21,6 +21,11 @@ spring:
       host: localhost
       port: 27017
       database: stickies
+  ai:
+    mcp:
+      server:
+        name: mcp-retroboy
+        instructions: This server provides tools to itegrate Stickies retro data
   flyway:
     enabled: true
     baseline-on-migrate: true

@@ -14,14 +14,11 @@ import com.mongodb.client.MongoClients;
 @EnableMongoRepositories(basePackages = "retroboy.job.importer")
 public class MongoConfig extends AbstractMongoClientConfiguration {
 
-  @Value("${spring.data.mongodb.host:localhost}")
-  private String host;
+  @Value("${spring.data.mongodb.host:localhost}") private String host;
 
-  @Value("${spring.data.mongodb.port:27017}")
-  private int port;
+  @Value("${spring.data.mongodb.port:27017}") private int port;
 
-  @Value("${spring.data.mongodb.database}")
-  private String database;
+  @Value("${spring.data.mongodb.database}") private String database;
 
   @Override
   protected String getDatabaseName() {
@@ -31,7 +28,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
   @Override
   public MongoClient mongoClient() {
     String connectionString = String.format("mongodb://%s:%d/%s", host, port, database);
-    System.out.println("MongoDB Connection String: " + connectionString);
+    // System.out.println("MongoDB Connection String: " + connectionString);
 
     ConnectionString connString = new ConnectionString(connectionString);
     MongoClientSettings settings = MongoClientSettings.builder()
