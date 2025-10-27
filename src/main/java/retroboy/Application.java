@@ -18,12 +18,22 @@ public class Application implements CommandLineRunner {
   @Autowired private ImporterJob importerJob;
 
   public static void main(String[] args) {
-    if (args.length == 0)
+    String job = jobName(args);
+
+    if (job == null) {
       SpringApplication.run(Application.class, args);
-    else
+    } else if ("stdio".equals(job)) {
+      System.setProperty("spring.ai.mcp.server.stdio", "true");
+      System.setProperty("spring.main.banner-mode", "off");
+      System.setProperty("spring.main.log-startup-info", "false");
+      System.setProperty("logging.level.root", "ERROR");
+
+      SpringApplication.run(Application.class, args);
+    } else if ("import".equals(job)) {
       new SpringApplicationBuilder(Application.class)
           .web(WebApplicationType.NONE)
           .run(args);
+    }
   }
 
   @Bean
@@ -33,11 +43,15 @@ public class Application implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    if (args.length == 0) return;
-
-    String job = args[0].toLowerCase();
-    if (job.equals("import")) {
+    String job = jobName(args);
+    if ("import".equals(job)) {
       importerJob.run();
     }
+  }
+
+  private static String jobName(String[] args) {
+    if (args.length == 0) return null;
+
+    return args[0].toLowerCase();
   }
 }
