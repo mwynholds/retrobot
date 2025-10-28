@@ -26,16 +26,26 @@ spring:
       server:
         name: mcp-retroboy
         instructions: This server provides tools to itegrate Stickies retro data
+
   flyway:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
 
+x402:
+  facilitator:
+    base-url: https://facilitator.mogami.tech
+  default-network: base-sepolia
+  default-payto: "0xBCe85b3943DB033e90ed0b20Df9503Cf33101B8D"
+  client:
+    fromaddress: "0xdE71133862c99586618231E02c0eaCF45440C3c4"
+    fromprivatekey: ${X402_CLIENT_PRIVATE_KEY}
+
 logging:
   level:
     root: INFO
+    org.springframework.boot: INFO
+    org.springframework.context: INFO
     org.springframework.web: INFO
+    org.springframework.data: INFO
     org.apache.tomcat: INFO
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
-    org.springframework.data.mongodb.core.ReactiveMongoTemplate: DEBUG
-    org.springframework.data.mongodb: INFO

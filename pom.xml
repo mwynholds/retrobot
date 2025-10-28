@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0-M3</version>
+        <version>4.0.0-RC1</version>
         <relativePath/>
     </parent>
 
@@ -54,6 +54,25 @@
             <version>1.0.3</version>
         </dependency>
 
+        <!-- Spring Boot dev tools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Mogami x.402 -->
+        <dependency>
+            <groupId>tech.mogami.spring</groupId>
+            <artifactId>mogami-x402-spring-boot-starter</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>tech.mogami.java.client</groupId>
+            <artifactId>mogami-x402-java-client</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
         <!-- Flyway -->
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -70,6 +89,13 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <!-- Dotenv (Spring integration) -->
+        <dependency>
+            <groupId>me.paulschwarz</groupId>
+            <artifactId>spring-dotenv</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 

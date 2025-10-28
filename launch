@@ -2,4 +2,5 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd $SCRIPT_DIR
-asdf exec java -jar target/retroboy-*.jar $@
+
+asdf exec mvn spring-boot:run -Dspring-boot.run.arguments="$*"
