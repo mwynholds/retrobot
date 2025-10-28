@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -41,13 +42,13 @@ public class CardController {
     }
 
     @GetMapping("/$search")
-    @X402PayUSDC(amount = "0.25")
+    @X402PayUSDC(amount = "2.25")
     public List<Card> searchCardsX402(@RequestParam String query) {
         return searchCards(query);
     }
 
     @GetMapping("/searchclient")
-    public String searchClient(@RequestParam String query) {
+    public List<Card> searchClient(@RequestParam String query) {
         RestTemplate rest = new RestTemplate();
         String url = "http://localhost:8080/api/v1/cards/$search";
         URI uri = UriComponentsBuilder.fromUriString(url).queryParam("query", query).build().encode().toUri();
@@ -72,7 +73,16 @@ public class CardController {
         headers.set(X402_X_PAYMENT_HEADER, X402PaymentHelper.getPayloadHeader(signed));
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String> response = rest.exchange(uri, HttpMethod.GET, entity, String.class);
-        return response.getBody();
+        ParameterizedTypeReference<List<Card>> type = new ParameterizedTypeReference<List<Card>>() {
+        };
+
+        try {
+            ResponseEntity<List<Card>> response = rest.exchange(uri, HttpMethod.GET, entity, type);
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            int code = e.getStatusCode().value();
+            if (code != 402) throw e;
+            throw new RuntimeException("402 with signed payment - perhaps insufficient funds");
+        }
     }
 }
