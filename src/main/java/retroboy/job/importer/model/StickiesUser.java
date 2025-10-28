@@ -3,15 +3,17 @@ package retroboy.job.importer.model;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
-public record StickiesUser(@Id String id, Set<StickiesIdentity> identities, String activeIdentity) implements StickiesIdentifiable {
-  public StickiesIdentity extractActiveIdentity() {
+public record StickiesUser(@Id String id, List<StickiesIdentity> identities, String activeIdentity, List<StickiesFeature> onboardedFeatures)
+    implements StickiesIdentifiable {
+
+  public StickiesIdentity bestIdentity() {
     if (identities == null) return null;
+
     List<StickiesIdentity> valid = identities.stream().filter(ident -> ident.email() != null).toList();
 
     if (valid.size() == 0) return null;
@@ -23,5 +25,13 @@ public record StickiesUser(@Id String id, Set<StickiesIdentity> identities, Stri
     }
     Comparator<StickiesIdentity> sorter = Comparator.comparing(StickiesIdentity::updated).reversed();
     return valid.stream().sorted(sorter).findFirst().orElse(null);
+  }
+
+  public StickiesFeature earliestFeature() {
+    if (onboardedFeatures == null) return null;
+    if (onboardedFeatures.size() == 0) return null;
+
+    Comparator<StickiesFeature> sorter = Comparator.comparing(StickiesFeature::created);
+    return onboardedFeatures.stream().sorted(sorter).findFirst().orElse(null);
   }
 }

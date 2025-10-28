@@ -3,6 +3,7 @@ package retroboy.job.importer;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ import de.bytefish.pgbulkinsert.PgBulkInsert;
 import de.bytefish.pgbulkinsert.util.PostgreSqlUtils;
 import retroboy.job.importer.model.StickiesCard;
 import retroboy.job.importer.model.StickiesCardRepository;
+import retroboy.job.importer.model.StickiesFeature;
 import retroboy.job.importer.model.StickiesIdentifiable;
 import retroboy.job.importer.model.StickiesIdentity;
 import retroboy.job.importer.model.StickiesUser;
@@ -96,10 +98,14 @@ public class ImporterJob {
     List<User> users;
 
     users = susers.stream().map(suser -> {
-      StickiesIdentity sident = suser.extractActiveIdentity();
+      StickiesIdentity sident = suser.bestIdentity();
       if (sident == null) return null;
 
-      return new User(suser.id(), sident.email(), sident.source());
+      StickiesFeature sfeature = suser.earliestFeature();
+      LocalDateTime screated = sfeature != null ? sfeature.created() : LocalDateTime.now();
+      LocalDateTime supdated = sfeature != null ? sfeature.updated() : LocalDateTime.now();
+
+      return new User(suser.id(), sident.email(), sident.source(), screated, supdated);
     }).filter(Objects::nonNull).toList();
 
     try {

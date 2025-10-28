@@ -9,6 +9,8 @@ public class UserMapping extends AbstractMapping<User> {
     mapText("id", User::id);
     mapText("email", User::email);
     mapText("source", User::source);
+    mapTimeStamp("created_at", User::createdAt);
+    mapTimeStamp("updated_at", User::updatedAt);
   }
 
 }
