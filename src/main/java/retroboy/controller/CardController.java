@@ -42,7 +42,7 @@ public class CardController {
     }
 
     @GetMapping("/$search")
-    @X402PayUSDC(amount = "2.25")
+    @X402PayUSDC(amount = "0.25")
     public List<Card> searchCardsX402(@RequestParam String query) {
         return searchCards(query);
     }
